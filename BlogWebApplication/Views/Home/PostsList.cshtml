@@ -1,0 +1,51 @@
+﻿@using BlogBLL.DTO
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+@model IEnumerable<BlogBLL.DTO.PostDto>
+
+@{
+    ViewData["Title"] = "Posts List";
+}
+
+<h2>Posts List</h2>
+
+@Html.ActionLink("Add post", "CreatePost")
+
+@foreach (var post in Model.OrderByDescending(o => o.Date))
+{
+    <div class="postBlock">
+
+        <div class="blochHeader">
+            <p class="leftstr">
+                @Html.ActionLink(post.Author.Name, "UserInfo", new { userId = post.Author.Id })
+                @Html.DisplayFor(modelItem => post.Date)
+            </p>
+            <p class="rightstr">
+                #@post.Id
+            </p>
+        </div>
+
+        <div class="radius" style="clear: left">
+
+            <b><p>@Html.DisplayFor(modelItem => post.Title)</p></b>
+
+            <p>@Html.DisplayFor(modelItem => post.Text)</p>
+
+            <div class="actionString">
+                @Html.ActionLink("Add comment", "CreateComment", new {postId = post.Id, receiverName = ""})
+
+                @if ((await AuthorizationService.AuthorizeAsync(User, post.AuthorId, "OwnerPolicy")).Succeeded)
+                {
+                    <span> | @Html.ActionLink("Edit", "EditPost", new {postId = post.Id}) | </span>
+                    <span>@Html.ActionLink("Delete", "DeletePost", new {postId = post.Id})</span>
+                }
+            </div>
+
+        </div>
+
+    </div>
+
+    @await Html.PartialAsync("CommentList", post.Comments)
+}
+

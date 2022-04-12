@@ -1,0 +1,47 @@
+﻿@using BlogBLL.DTO
+@model IEnumerable<CommentDto>
+
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+
+@foreach (var comment in Model.OrderByDescending(o => o.Date))
+{
+    <div class="commentBlock">
+
+        <div class="blochHeader">
+            <p class="leftstr">
+                @Html.ActionLink(comment.Author.Name, "UserInfo", new { userId = comment.Author.Id })
+                @Html.DisplayFor(modelItem => comment.Date)
+            </p>
+            <p class="rightstr">
+                #@comment.Id
+            </p>
+        </div>
+
+        <div class="radius" style="clear: left">
+
+            <p>
+                @if (comment.Receiver != null)
+                {
+                    @Html.ActionLink("@" + comment.Receiver.Name, "UserInfo", new {userId = comment.Receiver.Id})
+                }
+
+                @Html.DisplayFor(modelItem => comment.Text)
+            </p>
+
+            <div class="actionString">
+                @Html.ActionLink("Reply", "CreateComment", new {postId = comment.PostId, receiverName = comment.Author.Name})
+
+                @if ((await AuthorizationService.AuthorizeAsync(User, comment.AuthorId, "OwnerPolicy")).Succeeded)
+                {
+                    <span> | @Html.ActionLink("Edit", "EditComment", new {commentId = comment.Id}) | </span>
+                    <span>@Html.ActionLink("Delete", "DeleteComment", new {commentId = comment.Id})</span>
+                }
+            </div>
+
+        </div>
+
+    </div>
+}
+

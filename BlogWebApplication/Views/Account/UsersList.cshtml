@@ -1,0 +1,70 @@
+﻿@model IEnumerable<BlogBLL.DTO.UserDto>
+
+@{
+    ViewData["Title"] = "UsersList";
+}
+
+<h2>Users List</h2>
+
+<table class="table">
+    
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Password
+        </th>
+        <th>
+            Role
+        </th>
+        <th>
+            Is external account?
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+
+    @foreach (var user in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => user.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => user.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => user.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => user.Password)
+        </td>
+        <td>
+            @user.Role.ToString()
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => user.IsExternalAccount)
+        </td>
+        <td>
+            @if (!user.IsExternalAccount)
+            {
+                <span>
+                    @Html.ActionLink("Edit password", "EditUserPassword", new { userId = user.Id }) |
+                </span>
+            }
+            @Html.ActionLink("Edit role", "EditUserRole", new { userId = user.Id }) |
+            @Html.ActionLink("Delete", "DeleteUser", new { userId = user.Id })
+        </td>
+    </tr>
+    }
+
+</table>
+

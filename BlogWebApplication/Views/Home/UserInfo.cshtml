@@ -1,0 +1,60 @@
+﻿@model BlogBLL.DTO.UserInfoDto
+@{
+    ViewData["Title"] = "UserInfo";
+}
+
+<h2>User Info</h2>
+
+<table class="table">
+
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Role
+        </th>
+        <th>
+            Is external account?
+        </th>
+        <th>
+            Number of user posts
+        </th>
+        <th>
+            Number of user comments
+        </th>
+        <th></th>
+    </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.User.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.User.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.User.Email)
+            </td>
+            <td>
+                @Model.User.Role.ToString()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.User.IsExternalAccount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.NumberOfUserPosts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.NumberOfUserComments)
+            </td>
+        </tr>
+
+</table>
+

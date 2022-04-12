@@ -1,0 +1,1017 @@
+Request starting HTTP/1.1 DEBUG http://localhost:63716/  0
+Request starting HTTP/1.1 GET http://localhost:44361/  
+Request finished in 27.5949ms 200 
+Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller BlogWebApplication.Controllers.HomeController (BlogWebApplication).
+Executing action method BlogWebApplication.Controllers.HomeController.Index (BlogWebApplication) - Validation state: Valid
+Executed action method BlogWebApplication.Controllers.HomeController.Index (BlogWebApplication), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.4961ms.
+Executing ViewResult, running view Index.
+Executed ViewResult - view Index executed in 65.3852ms.
+Executed action BlogWebApplication.Controllers.HomeController.Index (BlogWebApplication) in 256.9943ms
+Request finished in 417.892ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:44361/  
+Request starting HTTP/1.1 DEBUG http://localhost:63716/  0
+Request finished in 29.6818ms 200 
+Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller BlogWebApplication.Controllers.HomeController (BlogWebApplication).
+Executing action method BlogWebApplication.Controllers.HomeController.Index (BlogWebApplication) - Validation state: Valid
+Executed action method BlogWebApplication.Controllers.HomeController.Index (BlogWebApplication), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.5042ms.
+Executing ViewResult, running view Index.
+Executed ViewResult - view Index executed in 69.0242ms.
+Executed action BlogWebApplication.Controllers.HomeController.Index (BlogWebApplication) in 252.1488ms
+Request finished in 400.357ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:44361/css/site.css  
+The file /css/site.css was not modified
+Request finished in 10.2622ms 304 text/css
+Request starting HTTP/1.1 GET http://localhost:44361/Home/PostsList  
+Route matched with {action = "PostsList", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult PostsList() on controller BlogWebApplication.Controllers.HomeController (BlogWebApplication).
+Authorization was successful.
+Executing action method BlogWebApplication.Controllers.HomeController.PostsList (BlogWebApplication) - Validation state: Valid
+Entity Framework Core 2.1.11-servicing-32099 initialized 'BlogContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [c].[Id], [c].[AuthorId], [c].[Date], [c].[IsActive], [c].[PostId], [c].[ReceiverId], [c].[Text], [c.Receiver].[Id], [c.Receiver].[Email], [c.Receiver].[IsActive], [c.Receiver].[IsExternalAccount], [c.Receiver].[Name], [c.Receiver].[Password], [c.Receiver].[Role], [c.Author].[Id], [c.Author].[Email], [c.Author].[IsActive], [c.Author].[IsExternalAccount], [c.Author].[Name], [c.Author].[Password], [c.Author].[Role], [c.Post].[Id], [c.Post].[AuthorId], [c.Post].[Date], [c.Post].[IsActive], [c.Post].[Text], [c.Post].[Title], [c.Post.Author].[Id], [c.Post.Author].[Email], [c.Post.Author].[IsActive], [c.Post.Author].[IsExternalAccount], [c.Post.Author].[Name], [c.Post.Author].[Password], [c.Post.Author].[Role]
+FROM [Comments] AS [c]
+LEFT JOIN [Users] AS [c.Receiver] ON [c].[ReceiverId] = [c.Receiver].[Id]
+LEFT JOIN [Users] AS [c.Author] ON [c].[AuthorId] = [c.Author].[Id]
+LEFT JOIN [Posts] AS [c.Post] ON [c].[PostId] = [c.Post].[Id]
+LEFT JOIN [Users] AS [c.Post.Author] ON [c.Post].[AuthorId] = [c.Post.Author].[Id]
+WHERE ([c].[IsActive] = 1) AND ([c.Post].[IsActive] = 1)
+Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[Id], [p].[AuthorId], [p].[Date], [p].[IsActive], [p].[Text], [p].[Title], [p.Author].[Id], [p.Author].[Email], [p.Author].[IsActive], [p.Author].[IsExternalAccount], [p.Author].[Name], [p.Author].[Password], [p.Author].[Role]
+FROM [Posts] AS [p]
+LEFT JOIN [Users] AS [p.Author] ON [p].[AuthorId] = [p.Author].[Id]
+WHERE ((
+    SELECT COUNT(*)
+    FROM [Comments] AS [c]
+    WHERE ([c].[IsActive] = 1) AND ([p].[Id] = [c].[PostId])
+) = 0) AND ([p].[IsActive] = 1)
+Executed action method BlogWebApplication.Controllers.HomeController.PostsList (BlogWebApplication), returned result Microsoft.AspNetCore.Mvc.ViewResult in 200.1818ms.
+Executing ViewResult, running view PostsList.
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization was successful.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed ViewResult - view PostsList executed in 144.4298ms.
+Executed action BlogWebApplication.Controllers.HomeController.PostsList (BlogWebApplication) in 360.815ms
+Request finished in 374.8958ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:44361/Home/UserInfo?userId=2  
+Route matched with {action = "UserInfo", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult UserInfo(Int32) on controller BlogWebApplication.Controllers.HomeController (BlogWebApplication).
+Authorization was successful.
+Executing action method BlogWebApplication.Controllers.HomeController.UserInfo (BlogWebApplication) - Validation state: Valid
+Entity Framework Core 2.1.11-servicing-32099 initialized 'BlogContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Users] AS [u]
+INNER JOIN [Posts] AS [u.Posts] ON [u].[Id] = [u.Posts].[AuthorId]
+WHERE (([u].[IsActive] = 1) AND ([u].[Id] = @__id_0)) AND ([u.Posts].[IsActive] = 1)
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Users] AS [u]
+INNER JOIN [Comments] AS [u.AuthorComments] ON [u].[Id] = [u.AuthorComments].[AuthorId]
+WHERE (([u].[IsActive] = 1) AND ([u].[Id] = @__id_0)) AND ([u.AuthorComments].[IsActive] = 1)
+Executed action method BlogWebApplication.Controllers.HomeController.UserInfo (BlogWebApplication), returned result Microsoft.AspNetCore.Mvc.ViewResult in 34.1551ms.
+Executing ViewResult, running view UserInfo.
+Executed ViewResult - view UserInfo executed in 18.4498ms.
+Executed action BlogWebApplication.Controllers.HomeController.UserInfo (BlogWebApplication) in 71.259ms
+Request finished in 84.7438ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:44361/  
+Request starting HTTP/1.1 DEBUG http://localhost:63716/  0
+Request finished in 28.7189ms 200 
+Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller BlogWebApplication.Controllers.HomeController (BlogWebApplication).
+Executing action method BlogWebApplication.Controllers.HomeController.Index (BlogWebApplication) - Validation state: Valid
+Executed action method BlogWebApplication.Controllers.HomeController.Index (BlogWebApplication), returned result Microsoft.AspNetCore.Mvc.ViewResult in 1.2054ms.
+Executing ViewResult, running view Index.
+Executed ViewResult - view Index executed in 84.7107ms.
+Executed action BlogWebApplication.Controllers.HomeController.Index (BlogWebApplication) in 276.0746ms
+Request finished in 430.8194ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:44361/css/site.css  
+The file /css/site.css was not modified
+Request finished in 13.3727ms 304 text/css
+Request starting HTTP/1.1 GET http://localhost:44361/Home/PostsList  
+Route matched with {action = "PostsList", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult PostsList() on controller BlogWebApplication.Controllers.HomeController (BlogWebApplication).
+Authorization was successful.
+Executing action method BlogWebApplication.Controllers.HomeController.PostsList (BlogWebApplication) - Validation state: Valid
+Entity Framework Core 2.1.11-servicing-32099 initialized 'BlogContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [c].[Id], [c].[AuthorId], [c].[Date], [c].[IsActive], [c].[PostId], [c].[ReceiverId], [c].[Text], [c.Receiver].[Id], [c.Receiver].[Email], [c.Receiver].[IsActive], [c.Receiver].[IsExternalAccount], [c.Receiver].[Name], [c.Receiver].[Password], [c.Receiver].[Role], [c.Author].[Id], [c.Author].[Email], [c.Author].[IsActive], [c.Author].[IsExternalAccount], [c.Author].[Name], [c.Author].[Password], [c.Author].[Role], [c.Post].[Id], [c.Post].[AuthorId], [c.Post].[Date], [c.Post].[IsActive], [c.Post].[Text], [c.Post].[Title], [c.Post.Author].[Id], [c.Post.Author].[Email], [c.Post.Author].[IsActive], [c.Post.Author].[IsExternalAccount], [c.Post.Author].[Name], [c.Post.Author].[Password], [c.Post.Author].[Role]
+FROM [Comments] AS [c]
+LEFT JOIN [Users] AS [c.Receiver] ON [c].[ReceiverId] = [c.Receiver].[Id]
+LEFT JOIN [Users] AS [c.Author] ON [c].[AuthorId] = [c.Author].[Id]
+LEFT JOIN [Posts] AS [c.Post] ON [c].[PostId] = [c.Post].[Id]
+LEFT JOIN [Users] AS [c.Post.Author] ON [c.Post].[AuthorId] = [c.Post.Author].[Id]
+WHERE ([c].[IsActive] = 1) AND ([c.Post].[IsActive] = 1)
+Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[Id], [p].[AuthorId], [p].[Date], [p].[IsActive], [p].[Text], [p].[Title], [p.Author].[Id], [p.Author].[Email], [p.Author].[IsActive], [p.Author].[IsExternalAccount], [p.Author].[Name], [p.Author].[Password], [p.Author].[Role]
+FROM [Posts] AS [p]
+LEFT JOIN [Users] AS [p.Author] ON [p].[AuthorId] = [p.Author].[Id]
+WHERE ((
+    SELECT COUNT(*)
+    FROM [Comments] AS [c]
+    WHERE ([c].[IsActive] = 1) AND ([p].[Id] = [c].[PostId])
+) = 0) AND ([p].[IsActive] = 1)
+Executed action method BlogWebApplication.Controllers.HomeController.PostsList (BlogWebApplication), returned result Microsoft.AspNetCore.Mvc.ViewResult in 204.1911ms.
+Executing ViewResult, running view PostsList.
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization was successful.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed ViewResult - view PostsList executed in 136.2493ms.
+Executed action BlogWebApplication.Controllers.HomeController.PostsList (BlogWebApplication) in 354.5098ms
+Request finished in 364.0951ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:44361/Home/PostsList  
+Route matched with {action = "PostsList", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult PostsList() on controller BlogWebApplication.Controllers.HomeController (BlogWebApplication).
+Authorization was successful.
+Executing action method BlogWebApplication.Controllers.HomeController.PostsList (BlogWebApplication) - Validation state: Valid
+Entity Framework Core 2.1.11-servicing-32099 initialized 'BlogContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [c].[Id], [c].[AuthorId], [c].[Date], [c].[IsActive], [c].[PostId], [c].[ReceiverId], [c].[Text], [c.Receiver].[Id], [c.Receiver].[Email], [c.Receiver].[IsActive], [c.Receiver].[IsExternalAccount], [c.Receiver].[Name], [c.Receiver].[Password], [c.Receiver].[Role], [c.Author].[Id], [c.Author].[Email], [c.Author].[IsActive], [c.Author].[IsExternalAccount], [c.Author].[Name], [c.Author].[Password], [c.Author].[Role], [c.Post].[Id], [c.Post].[AuthorId], [c.Post].[Date], [c.Post].[IsActive], [c.Post].[Text], [c.Post].[Title], [c.Post.Author].[Id], [c.Post.Author].[Email], [c.Post.Author].[IsActive], [c.Post.Author].[IsExternalAccount], [c.Post.Author].[Name], [c.Post.Author].[Password], [c.Post.Author].[Role]
+FROM [Comments] AS [c]
+LEFT JOIN [Users] AS [c.Receiver] ON [c].[ReceiverId] = [c.Receiver].[Id]
+LEFT JOIN [Users] AS [c.Author] ON [c].[AuthorId] = [c.Author].[Id]
+LEFT JOIN [Posts] AS [c.Post] ON [c].[PostId] = [c.Post].[Id]
+LEFT JOIN [Users] AS [c.Post.Author] ON [c.Post].[AuthorId] = [c.Post.Author].[Id]
+WHERE ([c].[IsActive] = 1) AND ([c.Post].[IsActive] = 1)
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[Id], [p].[AuthorId], [p].[Date], [p].[IsActive], [p].[Text], [p].[Title], [p.Author].[Id], [p.Author].[Email], [p.Author].[IsActive], [p.Author].[IsExternalAccount], [p.Author].[Name], [p.Author].[Password], [p.Author].[Role]
+FROM [Posts] AS [p]
+LEFT JOIN [Users] AS [p.Author] ON [p].[AuthorId] = [p.Author].[Id]
+WHERE ((
+    SELECT COUNT(*)
+    FROM [Comments] AS [c]
+    WHERE ([c].[IsActive] = 1) AND ([p].[Id] = [c].[PostId])
+) = 0) AND ([p].[IsActive] = 1)
+Executed action method BlogWebApplication.Controllers.HomeController.PostsList (BlogWebApplication), returned result Microsoft.AspNetCore.Mvc.ViewResult in 8.1557ms.
+Executing ViewResult, running view PostsList.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization was successful.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Authorization failed.
+Executed ViewResult - view PostsList executed in 73.1622ms.
+Executed action BlogWebApplication.Controllers.HomeController.PostsList (BlogWebApplication) in 89.4836ms
+Request finished in 98.6648ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:44361/Home/UserInfo?userId=1005  
+Route matched with {action = "UserInfo", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult UserInfo(Int32) on controller BlogWebApplication.Controllers.HomeController (BlogWebApplication).
+Authorization was successful.
+Executing action method BlogWebApplication.Controllers.HomeController.UserInfo (BlogWebApplication) - Validation state: Valid
+Entity Framework Core 2.1.11-servicing-32099 initialized 'BlogContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Users] AS [u]
+INNER JOIN [Posts] AS [u.Posts] ON [u].[Id] = [u.Posts].[AuthorId]
+WHERE (([u].[IsActive] = 1) AND ([u].[Id] = @__id_0)) AND ([u.Posts].[IsActive] = 1)
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Users] AS [u]
+INNER JOIN [Comments] AS [u.AuthorComments] ON [u].[Id] = [u.AuthorComments].[AuthorId]
+WHERE (([u].[IsActive] = 1) AND ([u].[Id] = @__id_0)) AND ([u.AuthorComments].[IsActive] = 1)
+Executed action method BlogWebApplication.Controllers.HomeController.UserInfo (BlogWebApplication), returned result Microsoft.AspNetCore.Mvc.ViewResult in 31.4572ms.
+Executing ViewResult, running view UserInfo.
+Executed ViewResult - view UserInfo executed in 18.2916ms.
+Executed action BlogWebApplication.Controllers.HomeController.UserInfo (BlogWebApplication) in 67.4094ms
+Request finished in 80.0995ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:44361/Home/UserInfo?userId=2  
+Route matched with {action = "UserInfo", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult UserInfo(Int32) on controller BlogWebApplication.Controllers.HomeController (BlogWebApplication).
+Authorization was successful.
+Executing action method BlogWebApplication.Controllers.HomeController.UserInfo (BlogWebApplication) - Validation state: Valid
+Entity Framework Core 2.1.11-servicing-32099 initialized 'BlogContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Users] AS [u]
+INNER JOIN [Posts] AS [u.Posts] ON [u].[Id] = [u.Posts].[AuthorId]
+WHERE (([u].[IsActive] = 1) AND ([u].[Id] = @__id_0)) AND ([u.Posts].[IsActive] = 1)
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Users] AS [u]
+INNER JOIN [Comments] AS [u.AuthorComments] ON [u].[Id] = [u.AuthorComments].[AuthorId]
+WHERE (([u].[IsActive] = 1) AND ([u].[Id] = @__id_0)) AND ([u.AuthorComments].[IsActive] = 1)
+Executed action method BlogWebApplication.Controllers.HomeController.UserInfo (BlogWebApplication), returned result Microsoft.AspNetCore.Mvc.ViewResult in 13.6795ms.
+Executing ViewResult, running view UserInfo.
+Executed ViewResult - view UserInfo executed in 3.3028ms.
+Executed action BlogWebApplication.Controllers.HomeController.UserInfo (BlogWebApplication) in 23.983ms
+Request finished in 30.6443ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:44361/Home/UserInfo?userId=2  
+Route matched with {action = "UserInfo", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult UserInfo(Int32) on controller BlogWebApplication.Controllers.HomeController (BlogWebApplication).
+Authorization was successful.
+Executing action method BlogWebApplication.Controllers.HomeController.UserInfo (BlogWebApplication) - Validation state: Valid
+Entity Framework Core 2.1.11-servicing-32099 initialized 'BlogContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[Email], [i].[IsActive], [i].[IsExternalAccount], [i].[Name], [i].[Password], [i].[Role]
+FROM [Users] AS [i]
+WHERE ([i].[IsActive] = 1) AND ([i].[Id] = @__id_0)
+ORDER BY [i].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.AuthorComments].[Id], [i.AuthorComments].[AuthorId], [i.AuthorComments].[Date], [i.AuthorComments].[IsActive], [i.AuthorComments].[PostId], [i.AuthorComments].[ReceiverId], [i.AuthorComments].[Text]
+FROM [Comments] AS [i.AuthorComments]
+INNER JOIN (
+    SELECT TOP(1) [i0].[Id]
+    FROM [Users] AS [i0]
+    WHERE ([i0].[IsActive] = 1) AND ([i0].[Id] = @__id_0)
+    ORDER BY [i0].[Id]
+) AS [t] ON [i.AuthorComments].[AuthorId] = [t].[Id]
+ORDER BY [t].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [i.CommentsToAuthor].[Id], [i.CommentsToAuthor].[AuthorId], [i.CommentsToAuthor].[Date], [i.CommentsToAuthor].[IsActive], [i.CommentsToAuthor].[PostId], [i.CommentsToAuthor].[ReceiverId], [i.CommentsToAuthor].[Text]
+FROM [Comments] AS [i.CommentsToAuthor]
+INNER JOIN (
+    SELECT TOP(1) [i1].[Id]
+    FROM [Users] AS [i1]
+    WHERE ([i1].[IsActive] = 1) AND ([i1].[Id] = @__id_0)
+    ORDER BY [i1].[Id]
+) AS [t0] ON [i.CommentsToAuthor].[ReceiverId] = [t0].[Id]
+ORDER BY [t0].[Id]
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Users] AS [u]
+INNER JOIN [Posts] AS [u.Posts] ON [u].[Id] = [u.Posts].[AuthorId]
+WHERE (([u].[IsActive] = 1) AND ([u].[Id] = @__id_0)) AND ([u.Posts].[IsActive] = 1)
+Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Users] AS [u]
+INNER JOIN [Comments] AS [u.AuthorComments] ON [u].[Id] = [u.AuthorComments].[AuthorId]
+WHERE (([u].[IsActive] = 1) AND ([u].[Id] = @__id_0)) AND ([u.AuthorComments].[IsActive] = 1)
+Executed action method BlogWebApplication.Controllers.HomeController.UserInfo (BlogWebApplication), returned result Microsoft.AspNetCore.Mvc.ViewResult in 13.2128ms.
+Executing ViewResult, running view UserInfo.
+Executed ViewResult - view UserInfo executed in 3.3155ms.
+Executed action BlogWebApplication.Controllers.HomeController.UserInfo (BlogWebApplication) in 23.3131ms
+Request finished in 30.5176ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:44361/  
+Request starting HTTP/1.1 DEBUG http://localhost:63716/  0
+Request finished in 33.5133ms 200 
+Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller BlogWebApplication.Controllers.HomeController (BlogWebApplication).
+Executing action method BlogWebApplication.Controllers.HomeController.Index (BlogWebApplication) - Validation state: Valid
+Executed action method BlogWebApplication.Controllers.HomeController.Index (BlogWebApplication), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.5785ms.
+Executing ViewResult, running view Index.
+Executed ViewResult - view Index executed in 65.4716ms.
+Executed action BlogWebApplication.Controllers.HomeController.Index (BlogWebApplication) in 243.8266ms
+Request finished in 415.9473ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:44361/lib/bootstrap/dist/css/bootstrap.css  
+Request starting HTTP/1.1 GET http://localhost:44361/css/site.css  
+Request starting HTTP/1.1 GET http://localhost:44361/lib/jquery/dist/jquery.js  
+Request starting HTTP/1.1 GET http://localhost:44361/lib/bootstrap/dist/js/bootstrap.js  
+Request starting HTTP/1.1 GET http://localhost:44361/js/site.js?v=4q1jwFhaPaZgr8WAUSrux6hAuh0XDg9kPS3xIVq36I0  
+Sending file. Request path: '/js/site.js'. Physical path: 'C:\Learn\Projects\BlogWebApplication\BlogWebApplication\wwwroot\js\site.js'
+Sending file. Request path: '/css/site.css'. Physical path: 'C:\Learn\Projects\BlogWebApplication\BlogWebApplication\wwwroot\css\site.css'
+Request finished in 15.7273ms 200 application/javascript
+Request finished in 45.9527ms 200 text/css
+Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.js'. Physical path: 'C:\Learn\Projects\BlogWebApplication\BlogWebApplication\wwwroot\lib\bootstrap\dist\js\bootstrap.js'
+Sending file. Request path: '/lib/jquery/dist/jquery.js'. Physical path: 'C:\Learn\Projects\BlogWebApplication\BlogWebApplication\wwwroot\lib\jquery\dist\jquery.js'
+Sending file. Request path: '/lib/bootstrap/dist/css/bootstrap.css'. Physical path: 'C:\Learn\Projects\BlogWebApplication\BlogWebApplication\wwwroot\lib\bootstrap\dist\css\bootstrap.css'
+Request finished in 71.9715ms 200 text/css
+Request finished in 66.5596ms 200 application/javascript
+Request finished in 66.5597ms 200 application/javascript
+Request starting HTTP/1.1 GET http://localhost:44361/favicon.ico  
+Sending file. Request path: '/favicon.ico'. Physical path: 'C:\Learn\Projects\BlogWebApplication\BlogWebApplication\wwwroot\favicon.ico'
+Request finished in 4.8581ms 200 image/x-icon
+Request starting HTTP/1.1 GET http://localhost:44361/Account/Login  
+Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller BlogWebApplication.Controllers.AccountController (BlogWebApplication).
+Executing action method BlogWebApplication.Controllers.AccountController.Login (BlogWebApplication) - Validation state: Valid
+Executed action method BlogWebApplication.Controllers.AccountController.Login (BlogWebApplication), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.1922ms.
+Executing ViewResult, running view Login.
+Executed ViewResult - view Login executed in 26.1234ms.
+Executed action BlogWebApplication.Controllers.AccountController.Login (BlogWebApplication) in 33.8513ms
+Request finished in 44.5096ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:44361/  
+Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller BlogWebApplication.Controllers.HomeController (BlogWebApplication).
+Executing action method BlogWebApplication.Controllers.HomeController.Index (BlogWebApplication) - Validation state: Valid
+Executed action method BlogWebApplication.Controllers.HomeController.Index (BlogWebApplication), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.0139ms.
+Executing ViewResult, running view Index.
+Executed ViewResult - view Index executed in 2.6508ms.
+Executed action BlogWebApplication.Controllers.HomeController.Index (BlogWebApplication) in 7.1309ms
+Request finished in 12.771ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:44361/Account/Register  
+Route matched with {action = "Register", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Register() on controller BlogWebApplication.Controllers.AccountController (BlogWebApplication).
+Executing action method BlogWebApplication.Controllers.AccountController.Register (BlogWebApplication) - Validation state: Valid
+Executed action method BlogWebApplication.Controllers.AccountController.Register (BlogWebApplication), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.1376ms.
+Executing ViewResult, running view Register.
+Executed ViewResult - view Register executed in 9.7877ms.
+Executed action BlogWebApplication.Controllers.AccountController.Register (BlogWebApplication) in 14.8258ms
+Request finished in 21.7319ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:44361/Account/Login  
+Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller BlogWebApplication.Controllers.AccountController (BlogWebApplication).
+Executing action method BlogWebApplication.Controllers.AccountController.Login (BlogWebApplication) - Validation state: Valid
+Executed action method BlogWebApplication.Controllers.AccountController.Login (BlogWebApplication), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.0123ms.
+Executing ViewResult, running view Login.
+Executed ViewResult - view Login executed in 2.3099ms.
+Executed action BlogWebApplication.Controllers.AccountController.Login (BlogWebApplication) in 6.5224ms
+Request finished in 12.155ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 DEBUG http://localhost:63716/  0
+Request starting HTTP/1.1 GET http://localhost:44361/  
+Request finished in 78.4911ms 200 
+Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller BlogWebApplication.Controllers.HomeController (BlogWebApplication).
+Executing action method BlogWebApplication.Controllers.HomeController.Index (BlogWebApplication) - Validation state: Valid
+Executed action method BlogWebApplication.Controllers.HomeController.Index (BlogWebApplication), returned result Microsoft.AspNetCore.Mvc.ViewResult in 3.6636ms.
+Executing ViewResult, running view Index.
+Executed ViewResult - view Index executed in 58.2273ms.
+Executed action BlogWebApplication.Controllers.HomeController.Index (BlogWebApplication) in 228.3444ms
+Request finished in 482.4522ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:44361/css/site.css  
+Request starting HTTP/1.1 GET http://localhost:44361/lib/bootstrap/dist/css/bootstrap.css  
+Request starting HTTP/1.1 GET http://localhost:44361/lib/jquery/dist/jquery.js  
+Sending file. Request path: '/css/site.css'. Physical path: 'C:\Learn\Projects\BlogWebApplication\BlogWebApplication\wwwroot\css\site.css'
+Request finished in 29.466ms 200 text/css
+Sending file. Request path: '/lib/bootstrap/dist/css/bootstrap.css'. Physical path: 'C:\Learn\Projects\BlogWebApplication\BlogWebApplication\wwwroot\lib\bootstrap\dist\css\bootstrap.css'
+Request finished in 30.4976ms 200 text/css
+Request starting HTTP/1.1 GET http://localhost:44361/lib/bootstrap/dist/js/bootstrap.js  
+Sending file. Request path: '/lib/jquery/dist/jquery.js'. Physical path: 'C:\Learn\Projects\BlogWebApplication\BlogWebApplication\wwwroot\lib\jquery\dist\jquery.js'
+Request starting HTTP/1.1 GET http://localhost:44361/js/site.js?v=4q1jwFhaPaZgr8WAUSrux6hAuh0XDg9kPS3xIVq36I0  
+Request finished in 36.3682ms 200 application/javascript
+Sending file. Request path: '/js/site.js'. Physical path: 'C:\Learn\Projects\BlogWebApplication\BlogWebApplication\wwwroot\js\site.js'
+Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.js'. Physical path: 'C:\Learn\Projects\BlogWebApplication\BlogWebApplication\wwwroot\lib\bootstrap\dist\js\bootstrap.js'
+Request finished in 5.7571ms 200 application/javascript
+Request finished in 12.1471ms 200 application/javascript
+Request starting HTTP/1.1 GET http://localhost:44361/favicon.ico  
+Sending file. Request path: '/favicon.ico'. Physical path: 'C:\Learn\Projects\BlogWebApplication\BlogWebApplication\wwwroot\favicon.ico'
+Request finished in 4.1971ms 200 image/x-icon
+Request starting HTTP/1.1 GET http://localhost:44361/Account/Login  
+Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller BlogWebApplication.Controllers.AccountController (BlogWebApplication).
+Executing action method BlogWebApplication.Controllers.AccountController.Login (BlogWebApplication) - Validation state: Valid
+Executed action method BlogWebApplication.Controllers.AccountController.Login (BlogWebApplication), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.3324ms.
+Executing ViewResult, running view Login.
+Executed ViewResult - view Login executed in 22.074ms.
+Executed action BlogWebApplication.Controllers.AccountController.Login (BlogWebApplication) in 28.8074ms
+Request finished in 39.8215ms 200 text/html; charset=utf-8
