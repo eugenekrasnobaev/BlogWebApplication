@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Security.Claims;
 
 namespace BlogWebApplication.Controllers

@@ -1,5 +1,3 @@
-using System;
-
 namespace BlogWebApplication.Models
 {
     public class ErrorVm

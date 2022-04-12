@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Linq;
 using BlogDAL.Entities;
-using BlogDALTests.RepositoryTests;
 using BlogDALTests.TestsEnvironment;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace BlogDALTests.RepositoryTests
 {

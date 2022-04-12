@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using BlogDAL.Entities;
-using BlogDAL.Repositories;
-using BlogDALTests.RepositoryTests;
 using BlogDALTests.TestsEnvironment;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace BlogDALTests.RepositoryTests
 {

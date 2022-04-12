@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
+﻿using AutoMapper;
 using BlogBLL;
-using BlogBLL.DTO;
-using BlogBLL.Interfaces;
 using BlogBLL.Services;
 using BlogDAL.Entities;
 using BlogDAL.Interfaces;

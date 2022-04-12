@@ -1,13 +1,6 @@
 ﻿using BlogBLL.Interfaces;
-using BlogWebApplication.Models;
 using Microsoft.AspNetCore.Authorization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using BlogDAL.Entities;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace BlogWebApplication.Authorization
 {

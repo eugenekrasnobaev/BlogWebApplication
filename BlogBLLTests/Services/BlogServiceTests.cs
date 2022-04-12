@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using BlogBLL.DTO;
 using BlogDAL.Entities;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

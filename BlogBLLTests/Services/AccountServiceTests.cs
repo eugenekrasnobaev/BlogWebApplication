@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using BlogBLL.DTO;
-using BlogBLL.Services;
-using BlogBLLTests.Services;
 using BlogDAL.Entities;
-using BlogDAL.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

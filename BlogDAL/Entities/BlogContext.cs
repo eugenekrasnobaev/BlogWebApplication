@@ -1,12 +1,5 @@
 ﻿using BlogDAL.Interfaces;
-using BlogDAL.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlogDAL.Entities
 {

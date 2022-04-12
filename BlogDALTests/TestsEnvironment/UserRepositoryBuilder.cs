@@ -1,9 +1,5 @@
 ﻿using BlogDAL.Entities;
-using BlogDAL.Interfaces;
 using BlogDAL.Repositories;
-using BlogDALTests.TestsEnvironment;
-using Microsoft.EntityFrameworkCore;
-using Moq;
 
 namespace BlogDALTests.TestsEnvironment
 {
